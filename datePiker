@@ -1,0 +1,41 @@
+  
+// MARK: - START DATE PICKER CHANGED VALUE
+func dateChanged(datePicker: UIDatePicker) {
+    // Get current date
+    let currentDate = NSDate()
+    
+    let dateFormatter = NSDateFormatter()
+    dateFormatter.dateFormat = "MMM dd yyyy @hh:mm a"
+    let dateStr = dateFormatter.stringFromDate(datePicker.date)
+    
+    // SET START DATE
+        if startDateSelected {
+            if datePicker.date.isLessThanDate(currentDate) {
+                let alert = UIAlertView(title: APP_NAME,
+                    message: "Start date cannot be less than today",
+                    delegate: nil,
+                    cancelButtonTitle: "OK")
+                alert.show()
+            } else {
+                startDateOutlet.setTitle(dateStr, forState: UIControlState.Normal)
+                startDate = datePicker.date
+            }
+            
+            
+        // SET END DATE
+        } else {
+            if datePicker.date.isSameAsDate(currentDate)   ||
+               datePicker.date.isLessThanDate(currentDate) {
+                let alert = UIAlertView(title: APP_NAME,
+                    message: "End date cannot be equal or less than today",
+                    delegate: nil,
+                    cancelButtonTitle: "OK")
+                alert.show()
+            } else {
+                endDateOutlet.setTitle(dateStr, forState: UIControlState.Normal)
+                endDate = datePicker.date
+            }
+        }
+        
+}
+   
